@@ -57,8 +57,4 @@ print(
 print(
     f"State tax amount: ${calculate_state_tax(monthly_sales):.2f}"
 )  # display state tax amount
-print(
-    f"Total tax amount: ${calculate_total_tax(
-        calculate_county_tax(monthly_sales), calculate_state_tax(monthly_sales)
-    ):.2f}"
-)  # display total tax amount
+print(f"Total tax amount: ${calculate_total_tax(calculate_county_tax(monthly_sales), calculate_state_tax(monthly_sales)):.2f}")  # display total tax amount
