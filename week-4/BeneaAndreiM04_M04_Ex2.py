@@ -64,8 +64,9 @@ sorted_items = sortItems(mock_data)  # store returned value in variable
 sorted_items2 = sortItems(mock_data2)  # store returned value in variable
 sorted_items3 = sortItems(mock_data3)  # store returned value in variable
 
+# testing three different scenarios in a single run
 printResults(sorted_items)  # print value
-print("")  # print blank
+print("")  # print blank for readability
 printResults(sorted_items2)  # print value
-print("")  # print blank
+print("")  # print blank for readability
 printResults(sorted_items3)  # print value

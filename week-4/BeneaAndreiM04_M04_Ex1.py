@@ -3,7 +3,7 @@ Author: Andrei Benea
 Date written: 6/22/24
 Assignment: M04 Programming Assignment Part 1
 This program prompts the user to enter an integer number greater
-than 1, then displays all of the prime numbers that are less or
+than 1, then displays all the prime numbers that are less or
 equal to the number provided.
 A positive integer greater than 1 is prime if it has no divisors
 other than 1 and itself. A positive integer greater than 1 is
