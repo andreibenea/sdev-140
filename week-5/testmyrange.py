@@ -24,7 +24,7 @@ def myRange(
             i += step  # increment counter
         return my_list
 
-print("\nCustom myRange function output below:") # display results of custom function
+print("Custom myRange function output below:") # display results of custom function
 print(myRange(10))
 print(myRange(10, 1))
 print(myRange(10, 1, 2))
