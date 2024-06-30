@@ -33,6 +33,9 @@ class TemperatureConverter(EasyFrame):
             column=1,
             sticky="S",
         )
+        imageLabel = self.addLabel(text="", row=0, rowspan=3, column=3, sticky="NSEW")
+        self.image = PhotoImage(file="week-6/thermometer.gif")
+        imageLabel["image"] = self.image
 
 
 def main():
