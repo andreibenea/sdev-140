@@ -13,16 +13,30 @@ F is the Fahrenheit temperature, and C is the Celsius temperature.
 """
 
 from breezypythongui import EasyFrame
+from tkinter import PhotoImage
+from tkinter.font import Font
 
 
-class ApplicationName(EasyFrame):
+class TemperatureConverter(EasyFrame):
     def __init__(self):
-        EasyFrame.__init__(self)
-        self.addLabel(text="Hello World", row=0, column=0)
+        EasyFrame.__init__(self, title="Temperature Converter")
+        self.setResizable(False)
+        self.addLabel(text="Temperature Converter", row=0, column=1, sticky="N")
+        self.addFloatField(0, row=1, column=1, precision=2, sticky="NSEW").setNumber(
+            0.00
+        )
+        self.addButton(text="Celsius", row=1, column=0)
+        self.addButton(text="Fahrenheit", row=1, column=2)
+        self.addLabel(
+            text="Type in value above, then click either buttons to convert",
+            row=2,
+            column=1,
+            sticky="S",
+        )
 
 
 def main():
-    ApplicationName().mainloop()
+    TemperatureConverter().mainloop()
 
 
 if __name__ == "__main__":
