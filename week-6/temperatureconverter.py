@@ -1,6 +1,6 @@
 """
 Author: Andrei Benea
-Date written: 6/29/24
+Date written: 7/1/24
 Assignment: M06 Practice Programming Exercise 9-5
 This program uses a GUI to allow the user to type in a temperature value
 inside an input field. This value can represent either degrees Celsius or 
