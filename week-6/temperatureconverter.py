@@ -21,24 +21,24 @@ class TemperatureConverter(EasyFrame):
     def __init__(self):
         EasyFrame.__init__(self, title="Temperature Converter")
         self.setResizable(False)
-        self.addLabel(text="Temperature Converter", row=0, column=1, sticky="N")
-        self.addFloatField(0, row=1, column=1, precision=2, sticky="NSEW").setNumber(
-            0.00
+        font = Font(weight="bold")
+        title = self.addLabel(text="Temperature Converter", row=0, column=1, sticky="N")
+        self.addFloatField(0, row=2, column=1, precision=2, sticky="EW").setNumber(0.00)
+        title["font"] = font
+        celsiusButton = self.celsiusButton = self.addButton(
+            text="Celsius", row=1, column=2, command=self.convert_to_celsius
         )
-        self.celsiusButton = self.addButton(
-            text="Celsius", row=1, column=0, command=self.convert_to_celsius
-        )
-        self.fahrenheitButton = self.addButton(
-            text="Fahrenheit", row=1, column=2, command=self.convert_to_fahrenheit
+        fahrenheitButton = self.fahrenheitButton = self.addButton(
+            text="Fahrenheit", row=2, column=2, command=self.convert_to_fahrenheit
         )
         self.addLabel(
-            text="Type in value above, then click either buttons to convert",
-            row=2,
+            text="Type in value below, then click either buttons to convert",
+            row=1,
             column=1,
             sticky="S",
         )
-        imageLabel = self.addLabel(text="", row=0, rowspan=3, column=3, sticky="NSEW")
-        self.image = PhotoImage(file="week-6/thermometer.gif")
+        imageLabel = self.addLabel(text="", row=0, rowspan=3, column=0, sticky="NSEW")
+        self.image = PhotoImage(file="week-6/thermometer_sm.gif")
         imageLabel["image"] = self.image
 
     def convert_to_celsius(self):
