@@ -23,7 +23,9 @@ class TemperatureConverter(EasyFrame):
         self.setResizable(False)
         font = Font(weight="bold")
         title = self.addLabel(text="Temperature Converter", row=0, column=1, sticky="N")
-        self.addFloatField(0, row=2, column=1, precision=2, sticky="EW").setNumber(0.00)
+        self.valueField = self.addFloatField(
+            0.0, row=2, column=1, precision=2, sticky="EW"
+        )
         title["font"] = font
         celsiusButton = self.celsiusButton = self.addButton(
             text="Celsius", row=1, column=2, command=self.convert_to_celsius
@@ -32,7 +34,7 @@ class TemperatureConverter(EasyFrame):
             text="Fahrenheit", row=2, column=2, command=self.convert_to_fahrenheit
         )
         self.addLabel(
-            text="Type in value below, then click either buttons to convert",
+            text="Type in value below\nthen click either buttons to convert",
             row=1,
             column=1,
             sticky="S",
@@ -42,12 +44,14 @@ class TemperatureConverter(EasyFrame):
         imageLabel["image"] = self.image
 
     def convert_to_celsius(self):
-        self.celsiusButton["state"] = "disabled"
-        self.fahrenheitButton["state"] = "normal"
+        value = self.valueField.getNumber()
+        result = 5 / 9 * (value - 32)
+        self.valueField.setNumber(result)
 
     def convert_to_fahrenheit(self):
-        self.celsiusButton["state"] = "normal"
-        self.fahrenheitButton["state"] = "disabled"
+        value = self.valueField.getNumber()
+        result = 9 / 5 * value + 32
+        self.valueField.setNumber(result)
 
 
 def main():
