@@ -12,7 +12,7 @@ a function that expects just the sequence as an argument. If the sequence is not
 the first element in the sequence is printed and then a recursive call is executed.
 On each recursive call, the sequence argument is sliced using the range `1:`.
 """
-    
+
 
 def printAll(seq):
     if seq:
