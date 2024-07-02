@@ -21,9 +21,6 @@ def get_user_input():
         if result == "":
             print("That's too bad.. Maybe another time!")
             break
-        # elif result.isalpha():  # check for alpha or empty string
-        #     print("Invalid input. Please try again!")
-        #     continue
         reg = re.search("[^\\-\\s\\d][\\\\^]?", result)  # define regex
         if reg:  # check for regex match
             print("Invalid input. Please try again!")
@@ -33,7 +30,6 @@ def get_user_input():
 
 def generate_number():  # generate random number
     random_number = random.randrange(1, 100)
-    print(f"For testing, random nr. is: {random_number}")
     return random_number
 
 
@@ -55,4 +51,9 @@ def play_game():  # define game function
             continue
 
 
-play_game()  # call game function
+def main():
+    play_game()  # call game function
+
+
+if __name__ == "__main__":
+    main()
