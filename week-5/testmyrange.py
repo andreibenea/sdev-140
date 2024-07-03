@@ -24,15 +24,23 @@ def myRange(
             i += step  # increment counter
         return my_list
 
-print("Custom myRange function output below:") # display results of custom function
-print(myRange(10))
-print(myRange(10, 1))
-print(myRange(10, 1, 2))
-print(myRange(1, 10, -1))
-print(myRange(10, 1, -1))
-print("\nStandard range function output (as list) below:") # display results of built-in range function for comparison
-print(list(range(10)))
-print(list(range(1, 10)))
-print(list(range(1, 10, 2)))
-print(list(range(10, 1, -1)))
-print(list(range(1, 10, -1)))
+
+def main():
+    print("Custom myRange function output below:")  # display results of custom function
+    print(myRange(10))
+    print(myRange(10, 1))
+    print(myRange(10, 1, 2))
+    print(myRange(1, 10, -1))
+    print(myRange(10, 1, -1))
+    print(
+        "\nStandard range function output (as list) below:"
+    )  # display results of built-in range function for comparison
+    print(list(range(10)))
+    print(list(range(1, 10)))
+    print(list(range(1, 10, 2)))
+    print(list(range(10, 1, -1)))
+    print(list(range(1, 10, -1)))
+
+
+if __name__ == "__main__":
+    main()
