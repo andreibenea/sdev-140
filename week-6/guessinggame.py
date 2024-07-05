@@ -41,7 +41,14 @@ def numberTooLow():
     global lowest_generated
     lowest_generated = generated_number
     if highest_generated != None:
-        generateNumber(lowest_generated + 1, highest_generated - 1)
+        if highest_generated - lowest_generated == 2:
+            displayVariable.set(
+                f"Hmm.. the only remaining option is {int((highest_generated + lowest_generated) / 2)}"
+            )
+            too_low_btn["state"] = DISABLED
+            too_high_btn["state"] = DISABLED
+        else:
+            generateNumber(lowest_generated + 1, highest_generated - 1)
     else:
         generateNumber(lowest_generated, 100)
 
@@ -50,7 +57,14 @@ def numberTooHigh():
     global highest_generated
     highest_generated = generated_number
     if lowest_generated != None:
-        generateNumber(lowest_generated + 1, highest_generated - 1)
+        if highest_generated - lowest_generated == 2:
+            displayVariable.set(
+                f"Hmm.. the only remaining option is {int((highest_generated + lowest_generated) / 2)}"
+            )
+            too_low_btn["state"] = DISABLED
+            too_high_btn["state"] = DISABLED
+        else:
+            generateNumber(lowest_generated + 1, highest_generated - 1)
     else:
         generateNumber(1, highest_generated)
 
@@ -65,6 +79,12 @@ def newGame():
     too_low_btn["state"] = NORMAL
     too_high_btn["state"] = NORMAL
     exact_match_btn["state"] = NORMAL
+    global generated_number
+    global highest_generated
+    global lowest_generated
+    generated_number = None
+    highest_generated = None
+    lowest_generated = None
     result = generateNumber()
     return result
 
@@ -99,7 +119,9 @@ number_area.grid(column=0, row=2)
 
 # buttons
 new_game_btn = ttk.Button(frm_buttons, text="New Game", command=lambda: [newGame()])
-too_low_btn = ttk.Button(frm_buttons, text="Too low!", command=lambda: [numberTooLow()], state=DISABLED)
+too_low_btn = ttk.Button(
+    frm_buttons, text="Too low!", command=lambda: [numberTooLow()], state=DISABLED
+)
 too_high_btn = ttk.Button(
     frm_buttons, text="Too high!", command=lambda: [numberTooHigh()], state=DISABLED
 )
