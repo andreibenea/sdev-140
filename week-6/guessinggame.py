@@ -70,7 +70,10 @@ def numberTooHigh():
 
 
 def exactMatch():
-    new_game_btn["state"] = "normal"
+    new_game_btn["state"] = NORMAL
+    too_low_btn["state"] = DISABLED
+    too_high_btn["state"] = DISABLED
+    exact_match_btn["state"] = DISABLED
     displayVariable.set("Good guessing! Time for another round?")
 
 
