@@ -61,7 +61,10 @@ def exactMatch():
 
 
 def newGame():
-    new_game_btn["state"] = "disabled"
+    new_game_btn["state"] = DISABLED
+    too_low_btn["state"] = NORMAL
+    too_high_btn["state"] = NORMAL
+    exact_match_btn["state"] = NORMAL
     result = generateNumber()
     return result
 
@@ -96,12 +99,12 @@ number_area.grid(column=0, row=2)
 
 # buttons
 new_game_btn = ttk.Button(frm_buttons, text="New Game", command=lambda: [newGame()])
-too_low_btn = ttk.Button(frm_buttons, text="Too low!", command=lambda: [numberTooLow()])
+too_low_btn = ttk.Button(frm_buttons, text="Too low!", command=lambda: [numberTooLow()], state=DISABLED)
 too_high_btn = ttk.Button(
-    frm_buttons, text="Too high!", command=lambda: [numberTooHigh()]
+    frm_buttons, text="Too high!", command=lambda: [numberTooHigh()], state=DISABLED
 )
 exact_match_btn = ttk.Button(
-    frm_buttons, text="That's correct!", command=lambda: [exactMatch()]
+    frm_buttons, text="That's correct!", command=lambda: [exactMatch()], state=DISABLED
 )
 quit_game_btn = ttk.Button(frm_buttons, text="Quit", command=root.destroy)
 
