@@ -23,34 +23,51 @@ frm_buttons = ttk.Frame(root, padding=10)
 frm_play_area.grid()
 frm_buttons.grid()
 
+# define global variable to store number
+generated_number = None
+highest_generated = None
+lowest_generated = None
+
 
 # define functions
-def generateNumber():
-    result = random.randint(1, 500)
-    print(result)
-    updateDisplay(result)
+def generateNumber(lowest: int = 1, highest: int = 100):
+    global generated_number
+    generated_number = random.randint(lowest, highest)
+    print(generated_number)
+    updateDisplay(generated_number)
 
 
 def numberTooLow():
-    pass
+    global lowest_generated
+    lowest_generated = generated_number
+    if highest_generated != None:
+        generateNumber(lowest_generated + 1, highest_generated - 1)
+    else:
+        generateNumber(lowest_generated, 100)
 
 
 def numberTooHigh():
-    pass
+    global highest_generated
+    highest_generated = generated_number
+    if lowest_generated != None:
+        generateNumber(lowest_generated + 1, highest_generated - 1)
+    else:
+        generateNumber(1, highest_generated)
 
 
 def exactMatch():
     new_game_btn["state"] = "normal"
-    pass
+    displayVariable.set("Good guessing! Time for another round?")
+
+
+def newGame():
+    new_game_btn["state"] = "disabled"
+    result = generateNumber()
+    return result
 
 
 def updateDisplay(string_value):
     displayVariable.set(f"Is {string_value} the number you had in mind?")
-
-
-def playGame():
-    new_game_btn["state"] = "disabled"
-    generateNumber()
 
 
 def main():
@@ -62,7 +79,7 @@ def main():
 displayVariable = StringVar()
 
 # messages
-greeting_area = ttk.Label(frm_play_area, text="Hello Friend!").grid(column=0, row=0)
+greeting_area = ttk.Label(frm_play_area, text="Hello Friend!")
 play_area = ttk.Label(
     frm_play_area,
     text="Think of a number between 1 and 500 then click 'New Game' to start the guessing game!",
@@ -73,11 +90,12 @@ number_area = ttk.Label(
 )
 
 # display grid setup
+greeting_area.grid(column=0, row=0)
 play_area.grid(column=0, row=1)
 number_area.grid(column=0, row=2)
 
 # buttons
-new_game_btn = ttk.Button(frm_buttons, text="New Game", command=lambda: [playGame()])
+new_game_btn = ttk.Button(frm_buttons, text="New Game", command=lambda: [newGame()])
 too_low_btn = ttk.Button(frm_buttons, text="Too low!", command=lambda: [numberTooLow()])
 too_high_btn = ttk.Button(
     frm_buttons, text="Too high!", command=lambda: [numberTooHigh()]
