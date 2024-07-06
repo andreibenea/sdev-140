@@ -35,13 +35,41 @@ def generateNumber(lowest: int = 1, highest: int = 100):
     generated_number = random.randint(lowest, highest)
     print(generated_number)
     updateDisplay(generated_number)
+    too_low_btn["state"] = NORMAL
+    too_high_btn["state"] = NORMAL
+    if generated_number == 100:
+        too_low_btn["state"] = DISABLED
+    if generated_number == 1:
+        too_high_btn["state"] = DISABLED
 
 
 def numberTooLow():
     global lowest_generated
     lowest_generated = generated_number
+    # debugging
+    print(f"Lowest generated is: {lowest_generated}")
+    print(f"Highest generated is: {highest_generated}")
+    print(f"Button clicked is: 'Too low'!")
     if highest_generated != None:
-        if highest_generated - lowest_generated == 2:
+        if highest_generated < lowest_generated:
+            displayVariable.set(f"Something isn't right, try again!")
+        elif lowest_generated == highest_generated:
+            print(
+                f"Lowest generated ({lowest_generated}) is the same as Highest generated ({highest_generated})"
+            )
+            displayVariable.set(
+                f"I hope you're not trying to fool me! The number must then be either {int(lowest_generated)} or {int(highest_generated)}."
+            )
+            too_low_btn["state"] = DISABLED
+            too_high_btn["state"] = DISABLED
+        elif highest_generated - lowest_generated == 1:
+            print(f"The difference between the Highest and Lowest is '1'")
+            displayVariable.set(
+                f"I hope you're not trying to fool me! The number must then be either {int(lowest_generated)} or {int(highest_generated)}."
+            )
+            too_low_btn["state"] = DISABLED
+            too_high_btn["state"] = DISABLED
+        elif highest_generated - lowest_generated == 2:
             displayVariable.set(
                 f"Hmm.. the only remaining option is {int((highest_generated + lowest_generated) / 2)}"
             )
@@ -50,14 +78,44 @@ def numberTooLow():
         else:
             generateNumber(lowest_generated + 1, highest_generated - 1)
     else:
-        generateNumber(lowest_generated, 100)
+        if lowest_generated == 99:
+            displayVariable.set(
+                f"Ok, in that case the only remaining option is {int(100)}."
+            )
+            too_low_btn["state"] = DISABLED
+            too_high_btn["state"] = DISABLED
+        else:
+            generateNumber(lowest_generated + 1, 100)
 
 
 def numberTooHigh():
     global highest_generated
     highest_generated = generated_number
+    # debugging
+    print(f"Lowest generated is: {lowest_generated}")
+    print(f"Highest generated is: {highest_generated}")
+    print(f"Button clicked is: 'Too high'!")
+
     if lowest_generated != None:
-        if highest_generated - lowest_generated == 2:
+        if highest_generated < lowest_generated:
+            displayVariable.set(f"Something isn't right, try again!")
+        elif lowest_generated == highest_generated:
+            print(
+                f"Lowest generated ({lowest_generated}) is the same as Highest generated ({highest_generated})"
+            )  # debug
+            displayVariable.set(
+                f"I hope you're not trying to fool me! The number must then be either {int(lowest_generated)} or {int(highest_generated)}."
+            )
+            too_low_btn["state"] = DISABLED
+            too_high_btn["state"] = DISABLED
+        elif highest_generated - lowest_generated == 1:
+            print(f"The difference between the Highest and Lowest is '1'")  # debug
+            displayVariable.set(
+                f"I hope you're not trying to fool me! The number must then be either {int(lowest_generated)} or {int(highest_generated)}."
+            )
+            too_low_btn["state"] = DISABLED
+            too_high_btn["state"] = DISABLED
+        elif highest_generated - lowest_generated == 2:
             displayVariable.set(
                 f"Hmm.. the only remaining option is {int((highest_generated + lowest_generated) / 2)}"
             )
@@ -66,7 +124,14 @@ def numberTooHigh():
         else:
             generateNumber(lowest_generated + 1, highest_generated - 1)
     else:
-        generateNumber(1, highest_generated)
+        if highest_generated == 2:
+            displayVariable.set(
+                f"Ok, in that case the only remaining option is {int(1)}."
+            )
+            too_low_btn["state"] = DISABLED
+            too_high_btn["state"] = DISABLED
+        else:
+            generateNumber(1, highest_generated - 1)
 
 
 def exactMatch():
