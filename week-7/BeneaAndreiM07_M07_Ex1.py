@@ -58,4 +58,6 @@ class Customer(Person):
 
 person_one = Customer("John Doe", "New York, NY", "(123) 456 7890", 1, True)
 
+
+print(person_one.getName())
 print(person_one)
