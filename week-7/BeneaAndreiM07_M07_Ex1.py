@@ -21,17 +21,41 @@ class Person:
     def getPhoneNumber(self):
         return self.phone_number
 
+    def __str__(self) -> str:
+        return (
+            "Name: "
+            + self.name
+            + "\nAddress: "
+            + self.address
+            + "\nPhone Nr.: "
+            + self.phone_number
+        )
+
 
 class Customer(Person):
-    def __init__(self, customer_number, wants_mailing_list) -> None:
+    def __init__(
+        self, name, address, phone_number, customer_number, wants_mailing_list
+    ) -> None:
+        super().__init__(name, address, phone_number)
         self.customer_number = customer_number
         self.wants_mailing_list = wants_mailing_list
 
-    def getCustomerNumber(self):
+    def getCustomerNr(self):
         return self.customer_number
 
-    def getWantsMailingList(self):
+    def determineMailingList(self):
         return self.wants_mailing_list
 
+    def __str__(self) -> str:
+        return (
+            super().__str__()
+            + "\nCustomer Nr.: "
+            + str(self.customer_number)
+            + "\nMailing List: "
+            + str(self.wants_mailing_list)
+        )
 
-customer_one = Customer()
+
+person_one = Customer("John Doe", "New York, NY", "(123) 456 7890", 1, True)
+
+print(person_one)
