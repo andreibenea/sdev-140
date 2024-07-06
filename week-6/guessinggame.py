@@ -181,7 +181,7 @@ displayVariable = StringVar()
 greeting_area = ttk.Label(frm_play_area, text="Hello Friend!")
 play_area = ttk.Label(
     frm_play_area,
-    text="Think of a number between 1 and 500 then click 'New Game' to start the guessing game!",
+    text="Think of a number between 1 and 100 then click 'New Game' to start the guessing game!",
 )
 number_area = ttk.Label(
     frm_play_area,
