@@ -1,25 +1,51 @@
+"""
+Author: Andrei Benea
+Date written: 7/7/24
+Assignment: Final Project
+The goal of this application is to act as a simple tool
+for managing weekly shopping needs. It allows the quick
+and easy adding of new items that need to be bought,
+storing these for when it's time to go shopping. Items
+on the list can be checked off as bought, marked as
+required for another shopping event, edited or deleted
+if needed.
+"""
+
 # import modules
 from tkinter import *
 from tkinter import ttk
 import tkinter as tk
 
-# create widgets
-root = tk.Tk()
-frm = ttk.Frame(root, padding=10)
-frm.grid()
+
+# create main page
+class MainPage(tk.Frame):
+    def __init__(self, parent, *args, **kwargs):
+        super().__init__(parent, *args, **kwargs)
+        self.create_widgets()
+
+    def create_widgets(self):
+        self.label = ttk.Label(self, text="Hello World")
+        self.label.grid(column=0, row=0)
+
+        self.button = ttk.Button(self, text="Quit", command=self.quitApplication)
+        self.button.grid(column=1, row=1)
+
+    def quitApplication(self):
+        self.master.quit()
 
 
-# define functions
-def main():
-    root.mainloop()
+# create main application
+class Application(tk.Tk):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.title("Shopping Manager")
 
+        self.page = MainPage(self)
+        self.page.grid()
 
-# create labels
-ttk.Label(frm, text="Hello World!").grid(column=0, row=0)
-
-# create buttons
-ttk.Button(frm, text="Quit", command=root.destroy).grid(column=1, row=0)
 
 # call main
 if __name__ == "__main__":
-    main()
+    app = Application()
+    app.resizable(width=False, height=False)
+    app.mainloop()
