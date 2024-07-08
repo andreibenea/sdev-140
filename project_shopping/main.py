@@ -89,14 +89,61 @@ class MainPage(tk.Frame):
         self.master.quit()
 
 
+# create active list page
+class ActiveList(tk.Frame):
+    def __init__(self, parent, *args, **kwargs):
+        super().__init__(parent, *args, **kwargs)
+        self.set_fonts()  # init fonts
+        self.create_widgets()  # init widgets
+
+    # define page fonts
+    def set_fonts(self):
+        self.titleFont = Font(weight="bold", size=20)
+
+    # define page widgets
+    def create_widgets(self):
+        # main window
+        self.mainFrame = ttk.Frame(self, padding=10)
+        self.mainFrame.grid()
+
+        # menu/nav button
+        self.menuButton = tk.Menubutton(
+            self.mainFrame, text="Menu", relief=RAISED, width=3
+        )
+        self.menuButton.grid(row=0, column=0)
+        self.menuButton.menu = tk.Menu(self.menuButton, tearoff=0)
+        self.menuButton["menu"] = self.menuButton.menu
+        self.mainPage = tk.IntVar()
+        self.allLists = tk.IntVar()
+        self.menuButton.menu.add_checkbutton(label="Home", variable=self.mainPage)
+        self.menuButton.menu.add_checkbutton(label="All Lists", variable=self.allLists)
+
+        # page title
+        self.pageTitle = ttk.Label(self.mainFrame, text="Active List")
+        self.pageTitle.grid(row=1, column=1)
+        self.pageTitle["font"] = self.titleFont
+
+        # quit button
+        self.quitButton = ttk.Button(
+            self.mainFrame, text="Quit", command=self.quitApplication, width=3
+        )
+        self.quitButton.grid(row=0, column=2)
+
+    # quit app function
+    def quitApplication(self):
+        self.master.quit()
+    
+    def toHome():
+        pass
+
+
 # create main application
 class Application(tk.Tk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.title("Shopping Manager")
-
-        self.page = MainPage(self)
-        self.page.grid()
+        self.homePage = MainPage(self)
+        self.homePage.grid()
 
 
 # call main
