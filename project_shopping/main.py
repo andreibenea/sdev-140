@@ -17,6 +17,9 @@ from tkinter import ttk
 from tkinter.font import Font
 import tkinter as tk
 
+active_list_items = []
+active_item = None
+
 
 # create main page
 class MainPage(tk.Frame):
@@ -77,7 +80,7 @@ class MainPage(tk.Frame):
             width=2.2,
             image=self.addToListImage,
             compound=RIGHT,
-            command=lambda: self.confirmQuantity
+            command=lambda: self.askForQuantity(),
         )
         self.addToListButton.grid(row=2, column=1, sticky=E)
 
@@ -91,6 +94,34 @@ class MainPage(tk.Frame):
     # quit app function
     def quitApplication(self):
         self.master.quit()
+
+    def askForQuantity(self):
+        global active_item
+        active_item = self.entryBar.get()
+        self.entryBar.destroy()
+        self.addToListButton.destroy()
+        self.itemAmount = ttk.Entry(self.mainFrame, width=9)
+        self.itemAmount.grid(row=2, column=1, sticky=W)
+        self.confirmAddButton = ttk.Button(
+            self.mainFrame, text="Confirm", width=6, command=lambda: self.confirmAdd()
+        )
+        self.confirmAddButton.grid(row=2, column=1, sticky=E)
+        return active_item
+
+    def confirmAdd(self):
+        global active_item
+        item_amount = self.itemAmount.get()
+        print(item_amount)
+        print(active_item)
+        active_list_items.append((active_item, item_amount))
+        print(active_list_items)
+        self.itemAmount.destroy()
+        self.confirmAddButton.destroy()
+        self.addedSuccessfullyMessage = ttk.Label(
+            self.mainFrame, text="Added successfully!"
+        )
+        self.addedSuccessfullyMessage.grid(row=2, column=1)
+        return active_list_items
 
 
 # create active list page
@@ -169,6 +200,9 @@ class Application(tk.Tk):
 
     def show_active_list(self):
         self.show_frame("ActiveList")
+
+    def confirmQuantity(self, widget_name):
+        pass
 
 
 # call main
