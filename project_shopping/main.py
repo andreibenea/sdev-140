@@ -33,7 +33,7 @@ class MainPage(tk.Frame):
     # define page widgets
     def create_widgets(self):
         # main window
-        self.mainFrame = ttk.Frame(self, height=400, width=400, padding=10)
+        self.mainFrame = ttk.Frame(self, height=400, width=400, padding=0)
         self.mainFrame.grid()
 
         # menu/nav button
@@ -48,7 +48,7 @@ class MainPage(tk.Frame):
         self.menuButton.menu.add_checkbutton(
             label="Active List",
             variable=self.activeList,
-            command=lambda:self.controller.show_active_list(),
+            command=lambda: self.controller.show_active_list(),
         )
         self.menuButton.menu.add_checkbutton(label="All Lists", variable=self.allLists)
 
@@ -64,8 +64,8 @@ class MainPage(tk.Frame):
         self.quitButton.grid(row=0, column=2)
 
         # input box
-        self.entryBar = ttk.Entry(self.mainFrame)
-        self.entryBar.grid(row=2, column=1, sticky="NWES")
+        self.entryBar = ttk.Entry(self.mainFrame, width=11)
+        self.entryBar.grid(row=2, column=1, sticky=W)
 
         # add to list button and image
         self.addToListImage = tk.PhotoImage(
@@ -74,11 +74,12 @@ class MainPage(tk.Frame):
         self.addToListButton = ttk.Button(
             self.mainFrame,
             text="Add",
-            width=2.5,
+            width=2.2,
             image=self.addToListImage,
             compound=RIGHT,
+            command=lambda: self.confirmQuantity
         )
-        self.addToListButton.grid(row=2, column=1, sticky="NES")
+        self.addToListButton.grid(row=2, column=1, sticky=E)
 
         # all lists image (link)
         self.allListsImage = tk.PhotoImage(
@@ -107,7 +108,7 @@ class ActiveList(tk.Frame):
     # define page widgets
     def create_widgets(self):
         # main window
-        self.mainFrame = ttk.Frame(self, height=400, width=400, padding=10)
+        self.mainFrame = ttk.Frame(self, height=400, width=400, padding=0)
         self.mainFrame.grid()
 
         # menu/nav button
@@ -120,7 +121,9 @@ class ActiveList(tk.Frame):
         self.mainPage = tk.IntVar()
         self.allLists = tk.IntVar()
         self.menuButton.menu.add_checkbutton(
-            label="Home", variable=self.mainPage, command=lambda:self.controller.show_home_page()
+            label="Home",
+            variable=self.mainPage,
+            command=lambda: self.controller.show_home_page(),
         )
         self.menuButton.menu.add_checkbutton(label="All Lists", variable=self.allLists)
 
@@ -145,7 +148,7 @@ class Application(tk.Tk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.title("Shopping Manager")
-        self.container = ttk.Frame(self, height=400, width=400, padding=10)
+        self.container = ttk.Frame(self, height=400, width=400, padding=0)
         self.container.grid()
 
         self.frames = {}
