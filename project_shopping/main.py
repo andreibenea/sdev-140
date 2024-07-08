@@ -20,8 +20,9 @@ import tkinter as tk
 
 # create main page
 class MainPage(tk.Frame):
-    def __init__(self, parent, *args, **kwargs):
+    def __init__(self, parent, controller, *args, **kwargs):
         super().__init__(parent, *args, **kwargs)
+        self.controller = controller
         self.set_fonts()  # init fonts
         self.create_widgets()  # init widgets
 
@@ -32,7 +33,7 @@ class MainPage(tk.Frame):
     # define page widgets
     def create_widgets(self):
         # main window
-        self.mainFrame = ttk.Frame(self, padding=10)
+        self.mainFrame = ttk.Frame(self, height=400, width=400, padding=10)
         self.mainFrame.grid()
 
         # menu/nav button
@@ -45,7 +46,9 @@ class MainPage(tk.Frame):
         self.activeList = tk.IntVar()
         self.allLists = tk.IntVar()
         self.menuButton.menu.add_checkbutton(
-            label="Active List", variable=self.activeList
+            label="Active List",
+            variable=self.activeList,
+            command=lambda:self.controller.show_active_list(),
         )
         self.menuButton.menu.add_checkbutton(label="All Lists", variable=self.allLists)
 
@@ -91,8 +94,9 @@ class MainPage(tk.Frame):
 
 # create active list page
 class ActiveList(tk.Frame):
-    def __init__(self, parent, *args, **kwargs):
+    def __init__(self, parent, controller, *args, **kwargs):
         super().__init__(parent, *args, **kwargs)
+        self.controller = controller
         self.set_fonts()  # init fonts
         self.create_widgets()  # init widgets
 
@@ -103,7 +107,7 @@ class ActiveList(tk.Frame):
     # define page widgets
     def create_widgets(self):
         # main window
-        self.mainFrame = ttk.Frame(self, padding=10)
+        self.mainFrame = ttk.Frame(self, height=400, width=400, padding=10)
         self.mainFrame.grid()
 
         # menu/nav button
@@ -115,7 +119,9 @@ class ActiveList(tk.Frame):
         self.menuButton["menu"] = self.menuButton.menu
         self.mainPage = tk.IntVar()
         self.allLists = tk.IntVar()
-        self.menuButton.menu.add_checkbutton(label="Home", variable=self.mainPage)
+        self.menuButton.menu.add_checkbutton(
+            label="Home", variable=self.mainPage, command=lambda:self.controller.show_home_page()
+        )
         self.menuButton.menu.add_checkbutton(label="All Lists", variable=self.allLists)
 
         # page title
@@ -132,9 +138,6 @@ class ActiveList(tk.Frame):
     # quit app function
     def quitApplication(self):
         self.master.quit()
-    
-    def toHome():
-        pass
 
 
 # create main application
@@ -142,8 +145,27 @@ class Application(tk.Tk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.title("Shopping Manager")
-        self.homePage = MainPage(self)
-        self.homePage.grid()
+        self.container = ttk.Frame(self, height=400, width=400, padding=10)
+        self.container.grid()
+
+        self.frames = {}
+        for F in (MainPage, ActiveList):
+            page_name = F.__name__
+            frame = F(parent=self.container, controller=self)
+            self.frames[page_name] = frame
+            frame.grid(row=0, column=0, sticky="NSEW")
+
+        self.show_frame("MainPage")
+
+    def show_frame(self, page_name):
+        frame = self.frames[page_name]
+        frame.tkraise()
+
+    def show_home_page(self):
+        self.show_frame("MainPage")
+
+    def show_active_list(self):
+        self.show_frame("ActiveList")
 
 
 # call main
