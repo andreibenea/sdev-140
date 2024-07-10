@@ -8,20 +8,25 @@ This program is an example of using a class and sub-class.
 
 # create person class
 class Person:
+    # define class methods (constructor)
     def __init__(self, name, address, phone_number) -> None:
         self.name = name
         self.address = address
         self.phone_number = phone_number
 
+    # define class methods
     def getName(self):
         return self.name
 
+    # define class methods
     def getAddress(self):
         return self.address
 
+    # define class methods
     def getPhoneNumber(self):
         return self.phone_number
 
+    # define class methods
     def __str__(self) -> str:
         return (
             "Name: "
@@ -35,6 +40,7 @@ class Person:
 
 # create customer sub-class
 class Customer(Person):
+    # define class methods (constructor)
     def __init__(
         self, name, address, phone_number, customer_number, wants_mailing_list
     ) -> None:
@@ -42,12 +48,15 @@ class Customer(Person):
         self.customer_number = customer_number
         self.wants_mailing_list = wants_mailing_list
 
+    # define class methods
     def getCustomerNr(self):
         return self.customer_number
 
+    # define class methods
     def determineMailingList(self):
         return self.wants_mailing_list
 
+    # define class methods
     def __str__(self) -> str:
         return (
             super().__str__()
