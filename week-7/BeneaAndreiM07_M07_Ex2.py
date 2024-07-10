@@ -11,8 +11,10 @@ to retrieve it and display it on the screen.
 
 # create employee class
 class Employee:
+    # define class variable
     num_of_employees = 0
 
+    # define class methods (constructor)
     def __init__(self, first, last) -> None:
         self.first = first
         self.last = last
@@ -21,12 +23,15 @@ class Employee:
         Employee.num_of_employees += 1
         self.emp_number = Employee.num_of_employees
 
+    # define class methods
     def getName(self):
         return self.fullname
 
+    # define class methods
     def getEmployeeNumber(self):
         return self.emp_number
 
+    # define class methods
     def __str__(self) -> str:
         return (
             "Full Name: "
@@ -38,14 +43,17 @@ class Employee:
 
 # create production worker sub-class
 class ProductionWorker(Employee):
+    # define class methods (constructor)
     def __init__(self, first, last, hourly_pay_rate, shift_number) -> None:
         super().__init__(first, last)
         self.hourly_pay_rate = hourly_pay_rate
         self.shift_number = shift_number
 
+    # define class methods
     def getRatePerHour(self):
         return self.hourly_pay_rate
 
+    # define class methods
     def getShift(self):
         if self.shift_number == 1 or self.shift_number == None:
             return "Day"
@@ -54,6 +62,7 @@ class ProductionWorker(Employee):
         else:
             return "Invalid shift number!"
 
+    # define class methods
     def __str__(self) -> str:
         return (
             super().__str__()
@@ -75,13 +84,14 @@ print(worker_two, "\n")
 
 # define main function
 def main():
+    # define variables for user input
     first_name = input("Type in the employee's first name: ")
     last_name = input("Type in the employee's last name: ")
     pay_rate = requestPayRate()
     shift = requestShiftInfo()
-
+    # define worker object to be created via user input
     worker_three = ProductionWorker(first_name, last_name, pay_rate, shift)
-
+    # print custom create worker object
     print(f"\n{worker_three}", "\n")
 
 
